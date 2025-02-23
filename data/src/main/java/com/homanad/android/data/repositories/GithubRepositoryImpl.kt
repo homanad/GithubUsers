@@ -6,8 +6,9 @@ import com.homanad.android.data.mappers.toUserEntity
 import com.homanad.android.data.service.GithubService
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.repositories.GithubRepository
+import javax.inject.Inject
 
-class GithubRepositoryImpl(
+class GithubRepositoryImpl @Inject constructor(
     private val userDao: UserDao,
     private val githubService: GithubService
 ) : GithubRepository {

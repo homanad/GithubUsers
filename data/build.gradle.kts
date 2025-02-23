@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.squareup.retrofit2)
     implementation(libs.squareup.moshi)
     implementation(libs.squareup.moshi.kotlincodegen)
+    implementation(libs.hilt)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

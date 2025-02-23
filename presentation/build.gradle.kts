@@ -48,6 +48,10 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.squareup.retrofit2)
+    implementation(libs.squareup.moshi)
+    implementation(libs.squareup.retrofit2.moshi)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

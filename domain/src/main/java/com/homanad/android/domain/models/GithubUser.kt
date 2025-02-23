@@ -1,6 +1,6 @@
 package com.homanad.android.domain.models
 
-class GithubUser(
+data class GithubUser(
     val username: String,
     val avatarUrl: String,
     val htmlUrl: String,

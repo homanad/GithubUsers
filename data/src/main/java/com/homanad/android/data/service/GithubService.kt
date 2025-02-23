@@ -8,13 +8,13 @@ import retrofit2.http.Query
 interface GithubService {
 
     @GET("/users")
-    fun getUsers(
+    suspend fun getUsers(
         @Query("per_page") perPage: Int,
         @Query("since") since: Int
     ): List<RemoteUser>
 
     @GET("/users")
-    fun getUser(
+    suspend fun getUser(
         @Path("login_username") username: String
     ): RemoteUser
 }
