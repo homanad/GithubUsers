@@ -12,6 +12,8 @@ constraintlayout = "2.2.0"
 jetbrainsKotlinJvm = "2.1.10"
 roomVersion = "2.6.1"
 kspVersion = "2.0.21-1.0.27"
+retrofitVersion = "2.11.0"
+moshiVersion = "1.15.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,6 +26,9 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
+squareup-moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshiVersion" }
+squareup-moshi-kotlincodegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshiVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

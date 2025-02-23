@@ -45,6 +45,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.squareup.retrofit2)
+    implementation(libs.squareup.moshi)
+    implementation(libs.squareup.moshi.kotlincodegen)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
