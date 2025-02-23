@@ -8,3 +8,10 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.kotlin.kapt) apply false
 }
+
+buildscript {
+    dependencies {
+        val libs = project.extensions.getByName("libs") as org.gradle.accessors.dm.LibrariesForLibs
+        classpath(libs.androidx.navigation.safeargs)
+    }
+}
