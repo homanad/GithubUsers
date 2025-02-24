@@ -1,15 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/dp24"
         tools:context=".ui.details.DetailsFragment">
 
-    </FrameLayout>
+        <include
+            android:id="@+id/cardUser"
+            layout="@layout/item_user" />
+
+        <include
+            android:id="@+id/layoutFollower"
+            layout="@layout/layout_follow_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:count="@{`20000+`}"
+            app:isFollower="@{true}"
+            app:layout_constraintEnd_toStartOf="@id/layoutFollowing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardUser"
+            app:title="@{`dsfsdaf2`}" />
+
+        <include
+            android:id="@+id/layoutFollowing"
+            layout="@layout/layout_follow_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:count="@{`2000+`}"
+            app:isFollower="@{false}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layoutFollower"
+            app:layout_constraintTop_toBottomOf="@id/cardUser"
+            app:title="@{`dsfsdaf`}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/titleBlog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/blog"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutFollower" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtBlog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleBlog"
+            tools:text="Blog" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
