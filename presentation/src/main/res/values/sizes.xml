@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="recyclerItemSpacing">8dp</dimen>
-    <dimen name="recyclerVerticalSpacing">16dp</dimen>
+    <dimen name="recyclerItemSpacing">@dimen/dp8</dimen>
+    <dimen name="recyclerVerticalSpacing">@dimen/dp16</dimen>
 </resources>

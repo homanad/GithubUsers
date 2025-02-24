@@ -9,12 +9,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:padding="@dimen/dp24">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgAvatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/dp60"
+            android:layout_height="@dimen/dp60"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="1px"
+            android:layout_height="@dimen/dp1"
             android:background="@color/separatorLine"
             app:layout_constraintBottom_toTopOf="@id/txtHtmlUrl"
             app:layout_constraintEnd_toEndOf="@id/txtUsername"
@@ -35,7 +35,7 @@
             style="@style/userNameText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/dp16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgAvatar"
             app:layout_constraintTop_toTopOf="@id/imgAvatar"
@@ -46,7 +46,7 @@
             style="@style/htmlText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/dp12"
             app:layout_constraintEnd_toEndOf="@id/txtUsername"
             app:layout_constraintStart_toStartOf="@id/txtUsername"
             app:layout_constraintTop_toBottomOf="@id/txtUsername"

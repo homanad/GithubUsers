@@ -15,7 +15,7 @@
             android:id="@+id/rcvUsers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingHorizontal="16dp" />
+            android:paddingHorizontal="@dimen/dp16" />
 
     </FrameLayout>
 </layout>
