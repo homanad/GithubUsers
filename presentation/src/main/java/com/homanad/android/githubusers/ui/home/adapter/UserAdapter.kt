@@ -14,7 +14,9 @@ class UserAdapter : BaseRecyclerViewAdapter<GithubUser>() {
     ) : BaseItemHolder<GithubUser>(binding) {
 
         override fun bind(item: GithubUser) {
+            with(binding) {
 
+            }
         }
     }
 
