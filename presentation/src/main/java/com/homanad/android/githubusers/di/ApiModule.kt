@@ -1,6 +1,7 @@
 package com.homanad.android.githubusers.di
 
 import com.homanad.android.data.service.GithubService
+import com.homanad.android.data.service.interceptors.CurlLoggerInterceptor
 import com.homanad.android.githubusers.common.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -29,8 +30,9 @@ object ApiModule {
 
     private fun getOkHttpClient() = OkHttpClient.Builder()
         .callTimeout(Constants.API_TIMEOUT, TimeUnit.MILLISECONDS)
+        .addInterceptor(CurlLoggerInterceptor())
         .build()
 
     @Provides
-    fun provideGithubService() = getRetrofit().create(GithubService::class.java)
+    fun provideGithubService(): GithubService = getRetrofit().create(GithubService::class.java)
 }
