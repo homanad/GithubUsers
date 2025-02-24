@@ -18,4 +18,9 @@
         <item name="android:linksClickable">true</item>
         <item name="android:textColorLink">@color/hyperLink</item>
     </style>
+
+    <style name="toolbarText">
+        <item name="android:textSize">@dimen/sp20</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
