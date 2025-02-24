@@ -8,7 +8,9 @@ import com.homanad.android.githubusers.common.BaseItemHolder
 import com.homanad.android.githubusers.common.BaseRecyclerViewAdapter
 import com.homanad.android.githubusers.databinding.ItemUserBinding
 
-class UserAdapter : BaseRecyclerViewAdapter<GithubUser>() {
+class UserAdapter(
+    private val onClick: (String) -> Unit
+) : BaseRecyclerViewAdapter<GithubUser>() {
 
     inner class ItemHolder(
         private val binding: ItemUserBinding
@@ -19,6 +21,9 @@ class UserAdapter : BaseRecyclerViewAdapter<GithubUser>() {
                 imgAvatar.load(item.avatarUrl)
                 txtUsername.text = item.username
                 txtHtmlUrl.text = item.htmlUrl
+                root.setOnClickListener {
+                    onClick(item.username)
+                }
             }
         }
     }

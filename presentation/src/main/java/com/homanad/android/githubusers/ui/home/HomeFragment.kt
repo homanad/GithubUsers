@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.homanad.android.githubusers.R
 import com.homanad.android.githubusers.common.BaseBindingFragment
@@ -22,7 +23,10 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     private val viewModel by viewModels<HomeViewModel>()
 
     private val userAdapter by lazy {
-        UserAdapter()
+        UserAdapter {
+            val direction = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it)
+            findNavController().navigate(direction)
+        }
     }
 
     override fun setupUI() {

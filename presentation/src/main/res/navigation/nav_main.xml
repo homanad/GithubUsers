@@ -20,5 +20,10 @@
         android:id="@+id/detailsFragment"
         android:name="com.homanad.android.githubusers.ui.details.DetailsFragment"
         android:label="DetailsFragment"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="username"
+            app:argType="string" />
+    </fragment>
 </navigation>
