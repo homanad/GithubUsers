@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="isFollower"
-            type="Boolean" />
+            name="icon"
+            type="android.graphics.drawable.Drawable" />
 
         <variable
             name="title"
@@ -25,10 +24,12 @@
         android:orientation="vertical"
         android:padding="@dimen/dp24">
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/dp40"
             android:layout_height="@dimen/dp40"
-            app:shapeAppearanceOverlay="@style/circleImageView" />
+            android:scaleType="fitXY"
+            android:src="@{icon}"
+            tools:src="@drawable/ic_follower" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
