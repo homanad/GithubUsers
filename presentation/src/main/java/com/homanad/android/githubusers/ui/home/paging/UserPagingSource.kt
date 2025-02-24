@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.usecases.github.GetGithubUsersUseCase
+import com.homanad.android.githubusers.common.Constants.USER_ITEMS_PER_PAGE
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -14,7 +15,6 @@ class UserPagingSource(
 ) : PagingSource<Int, GithubUser>() {
 
     companion object {
-        private const val ITEM_PER_PAGE = 20
         private const val START_PAGE = 1
     }
 
@@ -27,12 +27,12 @@ class UserPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubUser> {
         val page = params.key ?: START_PAGE
-        val since = ITEM_PER_PAGE * (page - 1)
+        val since = USER_ITEMS_PER_PAGE * (page - 1)
         return try {
             val response = withContext(Dispatchers.IO) {
                 getGithubUsersUseCase(
                     GetGithubUsersUseCase.Params(
-                        ITEM_PER_PAGE,
+                        USER_ITEMS_PER_PAGE,
                         since
                     )
                 )
@@ -40,7 +40,7 @@ class UserPagingSource(
             val nextKey = if (response.isEmpty()) {
                 null
             } else {
-                page + (params.loadSize / ITEM_PER_PAGE)
+                page + (params.loadSize / USER_ITEMS_PER_PAGE)
             }
             LoadResult.Page(
                 data = response,

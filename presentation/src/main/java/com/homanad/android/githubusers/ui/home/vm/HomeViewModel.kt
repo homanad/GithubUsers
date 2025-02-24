@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.usecases.github.GetGithubUsersUseCase
 import com.homanad.android.githubusers.common.BaseViewModel
+import com.homanad.android.githubusers.common.Constants.USER_ITEMS_PER_PAGE
 import com.homanad.android.githubusers.ui.home.paging.UserPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -45,8 +46,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             Pager(
                 config = PagingConfig(
-                    pageSize = 20,
-                    enablePlaceholders = false
+                    pageSize = USER_ITEMS_PER_PAGE,
+                    enablePlaceholders = false,
+                    initialLoadSize = USER_ITEMS_PER_PAGE
                 ),
                 pagingSourceFactory = { UserPagingSource(getGithubUsersUseCase) }
             ).flow.collectLatest {
