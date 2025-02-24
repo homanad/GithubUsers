@@ -2,6 +2,7 @@ package com.homanad.android.githubusers.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import coil3.load
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.githubusers.common.BaseItemHolder
 import com.homanad.android.githubusers.common.BaseRecyclerViewAdapter
@@ -15,7 +16,9 @@ class UserAdapter : BaseRecyclerViewAdapter<GithubUser>() {
 
         override fun bind(item: GithubUser) {
             with(binding) {
-
+                imgAvatar.load(item.avatarUrl)
+                txtUsername.text = item.username
+                txtHtmlUrl.text = item.htmlUrl
             }
         }
     }
