@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<BaseItemHolder<T>>() {
 
     protected var items = mutableListOf<T>()
-        set(value) {
-            val diffCallback = DiffCallback(this.items, items)
-            field = value
-            DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
-        }
+        private set
+
+    fun setItems(items: List<T>) {
+        val diffCallback = DiffCallback(this.items, items)
+        this.items = items.toMutableList()
+        DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(this)
+    }
 
     fun addItem(item: T) {
         items.add(item)
