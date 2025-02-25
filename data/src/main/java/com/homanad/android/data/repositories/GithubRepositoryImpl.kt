@@ -8,6 +8,8 @@ import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.repositories.GithubRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GithubRepositoryImpl @Inject constructor(
@@ -46,7 +48,7 @@ class GithubRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUser(username: String): GithubUser {
+//    override suspend fun getUser(username: String): Flow<GithubUser> {
 //        val local = userDao.getUserByUsername(username)
 //        return if (local == null) {
 //            val remote = githubService.getUser(username)
@@ -55,6 +57,18 @@ class GithubRepositoryImpl @Inject constructor(
 //        } else {
 //            local.toGithubUser()
 //        }
-        return githubService.getUser(username).toGithubUser()
+//        return githubService.getUser(username).toGithubUser()
+//    }
+
+    override suspend fun getUser(username: String): Flow<GithubUser> = flow {
+        userDao.getUserByUsername(username)?.let {
+            println("-------getFromLocal: $it")
+            emit(it.toGithubUser())
+        }
+
+        val remoteData = githubService.getUser(username)
+            .also { userDao.updateUser(it.toUserEntity()) }
+
+        emit(remoteData.toGithubUser())
     }
 }

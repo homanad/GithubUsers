@@ -6,6 +6,7 @@ import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
 import com.homanad.android.githubusers.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,8 +31,10 @@ class DetailsViewModel @Inject constructor(
 
     private fun getUser(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = getGithubUserUseCase(username)
-            emitState(State.User(data))
+            getGithubUserUseCase(username).collectLatest {
+                println("-----------data: $it")
+                emitState(State.User(it))
+            }
         }
     }
 }

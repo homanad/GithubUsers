@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
 import com.homanad.android.data.database.entities.UserEntity
 
 @Dao
@@ -18,6 +19,9 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUsers(users: List<UserEntity>)
+
+    @Update
+    fun updateUser(user: UserEntity)
 
     @Query("DELETE FROM users")
     fun deleteAll()
