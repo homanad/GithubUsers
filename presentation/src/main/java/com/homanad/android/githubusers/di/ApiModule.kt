@@ -14,6 +14,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
+/**
+ * This is the Hilt DI module class, provide instances for classes involved in API calls
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {

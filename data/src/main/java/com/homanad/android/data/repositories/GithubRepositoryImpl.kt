@@ -12,11 +12,20 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
+/**
+ * This is the implementation class of GithubRepository
+ * @see GithubRepository
+ * @param userDao Database DAO for accessing local data
+ * @param githubService Retrofit service to access data from the server
+ */
 class GithubRepositoryImpl @Inject constructor(
     private val userDao: UserDao,
     private val githubService: GithubService
 ) : GithubRepository {
 
+    /**
+     * //TODO
+     */
     override suspend fun getUsers(perPage: Int, since: Int): List<GithubUser> {
         println("--------since: $since")
         if (since == 0) {
@@ -60,6 +69,9 @@ class GithubRepositoryImpl @Inject constructor(
 //        return githubService.getUser(username).toGithubUser()
 //    }
 
+    /**
+     * //TODO
+     */
     override suspend fun getUser(username: String): Flow<GithubUser> = flow {
         userDao.getUserByUsername(username)?.let {
             println("-------getFromLocal: $it")

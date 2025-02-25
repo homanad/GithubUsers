@@ -7,6 +7,9 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
+/**
+ * This is the Hilt DI module class, provide implementation instances for repositories
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {

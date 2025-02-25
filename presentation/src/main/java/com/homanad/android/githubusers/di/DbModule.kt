@@ -9,6 +9,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
+/**
+ * This is the Hilt DI module class, provide instances for classes related to local data (Room)
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DbModule {

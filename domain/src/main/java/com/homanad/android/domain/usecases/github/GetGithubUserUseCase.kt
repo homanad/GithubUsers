@@ -5,6 +5,10 @@ import com.homanad.android.domain.repositories.GithubRepository
 import com.homanad.android.domain.usecases.BaseCallbackUseCaseWithParams
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * This use case is used to get user details.
+ * @param githubRepository Repository to execute use case
+ */
 class GetGithubUserUseCase(
     private val githubRepository: GithubRepository
 ) : BaseCallbackUseCaseWithParams<String, GithubUser>() {

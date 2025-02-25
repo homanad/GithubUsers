@@ -9,6 +9,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
+/**
+ * This class is the base class for Activity using Data Binding
+ * @param B The DataBinding class that is automatically generated from the DataBinding function.
+ */
 abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity() {
 
     private lateinit var _binding: B

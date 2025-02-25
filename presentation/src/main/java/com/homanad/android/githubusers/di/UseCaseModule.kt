@@ -8,6 +8,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
+/**
+ * This is the Hilt DI module class, provide instances for usecases
+ */
 @Module
 @InstallIn(ViewModelComponent::class)
 object UseCaseModule {

@@ -9,6 +9,12 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicBoolean
 
+/** Base class for view model
+ * @param Intent A sealed class/interface that defines the intents that should be handled for this ViewModel
+ * @param State A sealed class/interface that defines the display states for the UI
+ * @param intentChannelSize Specify the size of the Intent Channel
+ * @param stateChannelSize Specify the size of the State Channel
+ */
 abstract class BaseViewModel<Intent, State>(
     intentChannelSize: Int = Channel.UNLIMITED,
     stateChannelSize: Int = Channel.BUFFERED
@@ -26,6 +32,9 @@ abstract class BaseViewModel<Intent, State>(
         start()
     }
 
+    /**
+     * This function will be called as soon as the ViewModel is initialized.
+     */
     private fun start() {
         if (initialised.compareAndSet(false, true)) {
             onFirstStart()
@@ -39,16 +48,30 @@ abstract class BaseViewModel<Intent, State>(
         }
     }
 
+    /**
+     * An open function so that subclasses can define what to do on the first instantiation of the ViewModel
+     */
     protected open fun onFirstStart() {}
 
+    /**
+     * An abstract function for subclasses to handle each respective Intent
+     */
     protected abstract suspend fun processIntent(intent: Intent)
 
+    /**
+     * Send an Intent to the viewmodel to handle
+     * @param intent the intent needs to be handled
+     */
     fun sendIntent(intent: Intent) {
         viewModelScope.launch {
             _intentChannel.send(intent)
         }
     }
 
+    /**
+     * Emit a State to the UI
+     * @param state The state to be emitted
+     */
     protected fun emitState(state: State) {
         viewModelScope.launch {
             _stateChannel.send(state)

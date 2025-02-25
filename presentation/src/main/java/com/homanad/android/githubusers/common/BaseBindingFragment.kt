@@ -9,6 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
+/**
+ * This class is the base class for Fragment using Data Binding
+ * @param B The DataBinding class that is automatically generated from the DataBinding function.
+ */
 abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
 
     private lateinit var _binding: B
@@ -37,6 +41,9 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
         handleUIState()
     }
 
+    /**
+     * Provide the layout resource id corresponding to the provided DataBinding class
+     */
     @LayoutRes
     protected abstract fun getContentRes(): Int
 

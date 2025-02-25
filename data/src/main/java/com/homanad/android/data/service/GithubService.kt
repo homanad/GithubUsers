@@ -14,7 +14,7 @@ interface GithubService {
 
     ): List<RemoteUser>
 
-    @GET("/users")
+    @GET("/users/{login_username}")
     suspend fun getUser(
         @Path("login_username") username: String
     ): RemoteUser
