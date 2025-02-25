@@ -11,6 +11,7 @@ interface GithubService {
     suspend fun getUsers(
         @Query("per_page") perPage: Int,
         @Query("since") since: Int
+
     ): List<RemoteUser>
 
     @GET("/users")

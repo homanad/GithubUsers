@@ -2,9 +2,12 @@ package com.homanad.android.data.repositories
 
 import com.homanad.android.data.database.dao.UserDao
 import com.homanad.android.data.mappers.toGithubUser
+import com.homanad.android.data.mappers.toUserEntity
 import com.homanad.android.data.service.GithubService
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.repositories.GithubRepository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 class GithubRepositoryImpl @Inject constructor(
@@ -13,15 +16,34 @@ class GithubRepositoryImpl @Inject constructor(
 ) : GithubRepository {
 
     override suspend fun getUsers(perPage: Int, since: Int): List<GithubUser> {
-//        val local = userDao.getAll() //TODO handle paging for room/refactor logic
-//        return if (local.isEmpty()) {
-//            val remote = githubService.getUsers(perPage, since)
-//            userDao.insertUsers(remote.map { it.toUserEntity() })
-//            remote.map { it.toGithubUser() }
-//        } else {
-//            local.map { it.toGithubUser() }
-//        }
-        return githubService.getUsers(perPage, since).map { it.toGithubUser() }
+        println("--------since: $since")
+        if (since == 0) {
+            val localData = userDao.getAll()
+
+            return if (localData.isEmpty()) {
+                val remoteData = coroutineScope {
+                    async {
+                        println("------startRun: ${System.currentTimeMillis()}")
+                        return@async try {
+                            githubService.getUsers(perPage, since)
+                                .also { userDao.deleteAndInsert(it.map { item -> item.toUserEntity() }) }
+                        } catch (e: Exception) {
+                            println("-------exception: $e")
+                            emptyList()
+                        }
+                    }
+                }
+                println("------outside: ${System.currentTimeMillis()}")
+                val data = remoteData.await().map { it.toGithubUser() }
+                println("------endRun: ${System.currentTimeMillis()}")
+                data
+            } else {
+                localData.map { it.toGithubUser() }
+            }
+        } else {
+            println("--------getFromRemote")
+            return githubService.getUsers(perPage, since).map { it.toGithubUser() }
+        }
     }
 
     override suspend fun getUser(username: String): GithubUser {
