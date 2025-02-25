@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.homanad.android.githubusers.ui.home.HomeFragment"
+        android:name="com.homanad.android.githubusers.ui.screens.home.HomeFragment"
         android:label="@string/label_github_users"
         tools:layout="@layout/fragment_home">
 
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.homanad.android.githubusers.ui.details.DetailsFragment"
+        android:name="com.homanad.android.githubusers.ui.screens.details.DetailsFragment"
         android:label="@string/label_users_details"
         tools:layout="@layout/fragment_details">
 

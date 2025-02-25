@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.common
+package com.homanad.android.githubusers.common.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

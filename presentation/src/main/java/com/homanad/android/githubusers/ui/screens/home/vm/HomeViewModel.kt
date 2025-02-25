@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.ui.home.vm
+package com.homanad.android.githubusers.ui.screens.home.vm
 
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -6,9 +6,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.usecases.github.GetGithubUsersUseCase
-import com.homanad.android.githubusers.common.BaseViewModel
+import com.homanad.android.githubusers.common.base.BaseViewModel
 import com.homanad.android.githubusers.common.Constants.USER_ITEMS_PER_PAGE
-import com.homanad.android.githubusers.ui.home.paging.UserPagingSource
+import com.homanad.android.githubusers.ui.screens.home.paging.UserPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

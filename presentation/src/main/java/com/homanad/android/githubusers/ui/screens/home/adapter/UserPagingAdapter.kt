@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.ui.home.adapter
+package com.homanad.android.githubusers.ui.screens.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import coil3.load
 import com.homanad.android.domain.models.GithubUser
-import com.homanad.android.githubusers.common.BaseItemHolder
+import com.homanad.android.githubusers.common.recycler.BaseItemHolder
 import com.homanad.android.githubusers.databinding.ItemUserBinding
 
 class UserPagingAdapter(

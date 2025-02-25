@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import com.homanad.android.githubusers.R
-import com.homanad.android.githubusers.common.BaseBindingActivity
+import com.homanad.android.githubusers.common.base.BaseBindingActivity
 import com.homanad.android.githubusers.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

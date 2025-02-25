@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.ui.details
+package com.homanad.android.githubusers.ui.screens.details
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -9,9 +9,9 @@ import androidx.navigation.fragment.navArgs
 import coil3.load
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.githubusers.R
-import com.homanad.android.githubusers.common.BaseBindingFragment
+import com.homanad.android.githubusers.common.base.BaseBindingFragment
 import com.homanad.android.githubusers.databinding.FragmentDetailsBinding
-import com.homanad.android.githubusers.ui.details.vm.DetailsViewModel
+import com.homanad.android.githubusers.ui.screens.details.vm.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

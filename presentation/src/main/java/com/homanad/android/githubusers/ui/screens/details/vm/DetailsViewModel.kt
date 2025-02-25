@@ -1,9 +1,9 @@
-package com.homanad.android.githubusers.ui.details.vm
+package com.homanad.android.githubusers.ui.screens.details.vm
 
 import androidx.lifecycle.viewModelScope
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
-import com.homanad.android.githubusers.common.BaseViewModel
+import com.homanad.android.githubusers.common.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

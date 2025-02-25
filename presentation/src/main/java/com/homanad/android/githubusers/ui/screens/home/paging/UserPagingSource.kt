@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.ui.home.paging
+package com.homanad.android.githubusers.ui.screens.home.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

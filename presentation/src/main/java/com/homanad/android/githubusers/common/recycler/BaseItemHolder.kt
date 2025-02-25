@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.common
+package com.homanad.android.githubusers.common.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding

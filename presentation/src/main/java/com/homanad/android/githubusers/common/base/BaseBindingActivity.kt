@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.common
+package com.homanad.android.githubusers.common.base
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

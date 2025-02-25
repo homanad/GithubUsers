@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.common
+package com.homanad.android.githubusers.common.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

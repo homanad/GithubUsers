@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.ui.home
+package com.homanad.android.githubusers.ui.screens.home
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -8,12 +8,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.homanad.android.githubusers.R
-import com.homanad.android.githubusers.common.BaseBindingFragment
-import com.homanad.android.githubusers.common.VerticalSpaceItemDecoration
+import com.homanad.android.githubusers.common.base.BaseBindingFragment
+import com.homanad.android.githubusers.common.recycler.VerticalSpaceItemDecoration
 import com.homanad.android.githubusers.databinding.FragmentHomeBinding
-import com.homanad.android.githubusers.ui.home.adapter.UserAdapter
-import com.homanad.android.githubusers.ui.home.adapter.UserPagingAdapter
-import com.homanad.android.githubusers.ui.home.vm.HomeViewModel
+import com.homanad.android.githubusers.ui.screens.home.adapter.UserAdapter
+import com.homanad.android.githubusers.ui.screens.home.adapter.UserPagingAdapter
+import com.homanad.android.githubusers.ui.screens.home.vm.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

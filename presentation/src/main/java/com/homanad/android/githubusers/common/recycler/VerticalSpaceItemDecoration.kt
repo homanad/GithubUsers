@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.common
+package com.homanad.android.githubusers.common.recycler
 
 import android.graphics.Rect
 import android.view.View
