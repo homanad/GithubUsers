@@ -5,6 +5,13 @@
 
     <data>
 
+        <variable
+            name="followerCount"
+            type="String" />
+
+        <variable
+            name="followingCount"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,24 +29,24 @@
             layout="@layout/layout_follow_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:count="@{`20000+`}"
+            app:count="@{followerCount}"
             app:icon="@{@drawable/ic_follower}"
             app:layout_constraintEnd_toStartOf="@id/layoutFollowing"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardUser"
-            app:title="@{`dsfsdaf2`}" />
+            app:title="@{@string/follower}" />
 
         <include
             android:id="@+id/layoutFollowing"
             layout="@layout/layout_follow_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:count="@{`2000+`}"
+            app:count="@{followingCount}"
             app:icon="@{@drawable/ic_following}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/layoutFollower"
             app:layout_constraintTop_toBottomOf="@id/cardUser"
-            app:title="@{`dsfsdaf`}" />
+            app:title="@{@string/following}" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/titleBlog"

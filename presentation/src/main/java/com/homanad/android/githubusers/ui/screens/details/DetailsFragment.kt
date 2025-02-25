@@ -59,6 +59,8 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
             cardUser.imgAvatar.load(user.avatarUrl)
             cardUser.txtUsername.text = user.username
             cardUser.txtHtmlUrl.text = user.htmlUrl
+            followerCount = user.followers.toString()
+            followingCount = user.following.toString()
         }
     }
 }

@@ -3,4 +3,6 @@
     <string name="label_github_users">Github Users</string>
     <string name="label_users_details">Users Details</string>
     <string name="blog">Blog</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
 </resources>
