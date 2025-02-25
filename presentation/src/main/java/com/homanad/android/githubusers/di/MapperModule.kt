@@ -1,7 +1,8 @@
 package com.homanad.android.githubusers.di
 
 import android.content.Context
-import com.homanad.android.githubusers.mappers.UserDataMapper
+import com.homanad.android.githubusers.mappers.UserDetailsMapper
+import com.homanad.android.githubusers.mappers.UserItemMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,5 +14,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 object MapperModule {
 
     @Provides
-    fun provideUserDetailsMapper(@ApplicationContext context: Context) = UserDataMapper(context)
+    fun provideUserItemMapper() = UserItemMapper()
+
+    @Provides
+    fun provideUserDetailsMapper(
+        @ApplicationContext context: Context,
+        userItemMapper: UserItemMapper
+    ) = UserDetailsMapper(context, userItemMapper)
 }

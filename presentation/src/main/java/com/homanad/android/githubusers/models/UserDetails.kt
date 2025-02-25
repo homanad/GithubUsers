@@ -1,9 +1,7 @@
 package com.homanad.android.githubusers.models
 
-data class UserData(
-    val username: String,
-    val avatarUrl: String,
-    val githubUrl: String,
+data class UserDetails(
+    val userItem: UserItem,
     val location: String,
     val followerCount: String,
     val followingCount: String

@@ -5,17 +5,17 @@ import android.view.ViewGroup
 import com.homanad.android.githubusers.common.recycler.BaseItemHolder
 import com.homanad.android.githubusers.common.recycler.BaseRecyclerViewAdapter
 import com.homanad.android.githubusers.databinding.ItemUserBinding
-import com.homanad.android.githubusers.models.UserData
+import com.homanad.android.githubusers.models.UserItem
 
 class UserAdapter(
     private val onClick: (String) -> Unit
-) : BaseRecyclerViewAdapter<UserData>() {
+) : BaseRecyclerViewAdapter<UserItem>() {
 
     inner class ItemHolder(
         private val binding: ItemUserBinding
-    ) : BaseItemHolder<UserData>(binding) {
+    ) : BaseItemHolder<UserItem>(binding) {
 
-        override fun bind(item: UserData) {
+        override fun bind(item: UserItem) {
             with(binding) {
                 user = item
                 isDetails = false
@@ -30,7 +30,7 @@ class UserAdapter(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
-    ): BaseItemHolder<UserData> {
+    ): BaseItemHolder<UserItem> {
         val binding = ItemUserBinding.inflate(inflater, parent, false)
         return ItemHolder(binding)
     }

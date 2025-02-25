@@ -9,7 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.homanad.android.githubusers.R
 import com.homanad.android.githubusers.common.base.BaseBindingFragment
 import com.homanad.android.githubusers.databinding.FragmentDetailsBinding
-import com.homanad.android.githubusers.models.UserData
+import com.homanad.android.githubusers.models.UserDetails
 import com.homanad.android.githubusers.ui.screens.details.vm.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -51,7 +51,7 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
         }
     }
 
-    private fun showUserData(user: UserData) {
+    private fun showUserData(user: UserDetails) {
         println("-----------user: $user")
 
         with(binding) {

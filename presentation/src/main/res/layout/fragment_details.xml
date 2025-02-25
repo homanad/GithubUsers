@@ -7,7 +7,7 @@
 
         <variable
             name="userData"
-            type="com.homanad.android.githubusers.models.UserData" />
+            type="com.homanad.android.githubusers.models.UserDetails" />
 
         <variable
             name="isDetails"
@@ -26,7 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:isDetails="@{isDetails}"
-            app:user="@{userData}" />
+            app:location="@{userData.location}"
+            app:user="@{userData.userItem}" />
 
         <include
             android:id="@+id/layoutFollower"

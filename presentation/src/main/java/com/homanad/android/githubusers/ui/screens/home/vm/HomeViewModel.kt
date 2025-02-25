@@ -3,8 +3,8 @@ package com.homanad.android.githubusers.ui.screens.home.vm
 import androidx.lifecycle.viewModelScope
 import com.homanad.android.domain.usecases.github.GetGithubUsersUseCase
 import com.homanad.android.githubusers.common.base.BaseViewModel
-import com.homanad.android.githubusers.mappers.UserDataMapper
-import com.homanad.android.githubusers.models.UserData
+import com.homanad.android.githubusers.mappers.UserItemMapper
+import com.homanad.android.githubusers.models.UserItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getGithubUsersUseCase: GetGithubUsersUseCase,
-    private val userDataMapper: UserDataMapper
+    private val userItemMapper: UserItemMapper
 ) : BaseViewModel<HomeViewModel.Intent, HomeViewModel.State>() {
 
     sealed interface Intent {
@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
     }
 
     sealed interface State {
-        data class UserList(val users: List<UserData>) : State
+        data class UserList(val users: List<UserItem>) : State
 
         //        data class UserList2(val users: PagingData<GithubUser>) : State
         data class Loading(val isLoading: Boolean) : State
@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             emitState(State.Loading(true))
             val data = getGithubUsersUseCase(GetGithubUsersUseCase.Params(20, 0))
-            emitState(State.UserList(data.map { userDataMapper(it) }))
+            emitState(State.UserList(data.map { userItemMapper(it) }))
             emitState(State.Loading(false))
         }
     }
