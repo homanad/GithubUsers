@@ -32,6 +32,7 @@
             tools:src="@drawable/ic_follower" />
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/NormalText.NumberCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
@@ -41,6 +42,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/NormalText"
             android:layout_marginTop="@dimen/dp12"
             android:text="@{title}"
             tools:text="Follower" />

@@ -8,19 +8,37 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="userNameText">
+    <style name="LargeTitleText">
+        <item name="android:textSize">@dimen/sp20</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TitleText">
         <item name="android:textSize">@dimen/sp16</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="htmlText">
+    <style name="NormalText">
+        <item name="android:textSize">@dimen/sp13</item>
+        <item name="android:textColor">@color/subTitleTextColor</item>
+    </style>
+
+    <style name="SmallText">
+        <item name="android:textSize">@dimen/sp11</item>
+    </style>
+
+    <style name="NormalText.Location">
+        <item name="drawableTint">@color/subTitleTextColor</item>
+    </style>
+
+    <style name="SmallText.Html">
         <item name="android:autoLink">web</item>
         <item name="android:linksClickable">true</item>
         <item name="android:textColorLink">@color/hyperLink</item>
     </style>
 
-    <style name="toolbarText">
-        <item name="android:textSize">@dimen/sp20</item>
+    <style name="NormalText.NumberCount">
         <item name="android:textStyle">bold</item>
     </style>
+
 </resources>

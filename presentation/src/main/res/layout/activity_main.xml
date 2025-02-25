@@ -30,7 +30,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtLabel"
-                style="@style/toolbarText"
+                style="@style/LargeTitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />

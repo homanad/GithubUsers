@@ -49,7 +49,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtUsername"
-                style="@style/userNameText"
+                style="@style/TitleText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp16"
@@ -61,7 +61,7 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtHtmlUrl"
-                style="@style/htmlText"
+                style="@style/SmallText.Html"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp12"
@@ -72,6 +72,7 @@
                 tools:text="https://www.dummy.com" />
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/NormalText.Location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
