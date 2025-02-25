@@ -12,7 +12,6 @@ import com.homanad.android.githubusers.common.base.BaseBindingFragment
 import com.homanad.android.githubusers.common.recycler.VerticalSpaceItemDecoration
 import com.homanad.android.githubusers.databinding.FragmentHomeBinding
 import com.homanad.android.githubusers.ui.screens.home.adapter.UserAdapter
-import com.homanad.android.githubusers.ui.screens.home.adapter.UserPagingAdapter
 import com.homanad.android.githubusers.ui.screens.home.vm.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,12 +30,12 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
         }
     }
 
-    private val userAdapter2 by lazy {
-        UserPagingAdapter {
-            val direction = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it)
-            findNavController().navigate(direction)
-        }
-    }
+//    private val userAdapter2 by lazy {
+//        UserPagingAdapter {
+//            val direction = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it)
+//            findNavController().navigate(direction)
+//        }
+//    }
 
     override val loadingLayout: View
         get() = binding.viewLoading.root
@@ -45,7 +44,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
         viewModel.sendIntent(HomeViewModel.Intent.GetUsers)
         with(binding) {
             rcvUsers.run {
-                adapter = userAdapter2
+                adapter = userAdapter
                 layoutManager = LinearLayoutManager(requireContext())
 
                 val verticalSpace = resources.getDimensionPixelSize(R.dimen.recyclerVerticalSpacing)
@@ -70,15 +69,15 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
         }
     }
 
-    private suspend fun handleState(state: HomeViewModel.State) {
+    private fun handleState(state: HomeViewModel.State) {
         when (state) {
             is HomeViewModel.State.UserList -> {
                 userAdapter.setItems(state.users)
             }
 
-            is HomeViewModel.State.UserList2 -> {
-                userAdapter2.submitData(state.users)
-            }
+//            is HomeViewModel.State.UserList2 -> {
+//                userAdapter2.submitData(state.users)
+//            }
 
             is HomeViewModel.State.Loading -> showLoading(state.isLoading)
         }

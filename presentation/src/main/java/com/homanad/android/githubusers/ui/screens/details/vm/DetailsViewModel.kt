@@ -1,9 +1,10 @@
 package com.homanad.android.githubusers.ui.screens.details.vm
 
 import androidx.lifecycle.viewModelScope
-import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
 import com.homanad.android.githubusers.common.base.BaseViewModel
+import com.homanad.android.githubusers.mappers.UserDataMapper
+import com.homanad.android.githubusers.models.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val getGithubUserUseCase: GetGithubUserUseCase
+    private val getGithubUserUseCase: GetGithubUserUseCase,
+    private val userDataMapper: UserDataMapper
 ) : BaseViewModel<DetailsViewModel.Intent, DetailsViewModel.State>() {
 
     sealed interface Intent {
@@ -20,7 +22,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     sealed interface State {
-        data class User(val user: GithubUser) : State
+        data class User(val user: UserData) : State
         data class Loading(val isLoading: Boolean) : State
     }
 
@@ -35,7 +37,7 @@ class DetailsViewModel @Inject constructor(
             emitState(State.Loading(true))
             getGithubUserUseCase(username).collectLatest {
                 println("-----------data: $it")
-                emitState(State.User(it))
+                emitState(State.User(userDataMapper(it)))
                 emitState(State.Loading(false))
             }
         }

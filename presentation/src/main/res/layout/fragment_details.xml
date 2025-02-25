@@ -6,12 +6,12 @@
     <data>
 
         <variable
-            name="followerCount"
-            type="String" />
+            name="userData"
+            type="com.homanad.android.githubusers.models.UserData" />
 
         <variable
-            name="followingCount"
-            type="String" />
+            name="isDetails"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,14 +22,18 @@
 
         <include
             android:id="@+id/cardUser"
-            layout="@layout/item_user" />
+            layout="@layout/item_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isDetails="@{isDetails}"
+            app:user="@{userData}" />
 
         <include
             android:id="@+id/layoutFollower"
             layout="@layout/layout_follow_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:count="@{followerCount}"
+            app:count="@{userData.followerCount}"
             app:icon="@{@drawable/ic_follower}"
             app:layout_constraintEnd_toStartOf="@id/layoutFollowing"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +45,7 @@
             layout="@layout/layout_follow_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:count="@{followingCount}"
+            app:count="@{userData.followingCount}"
             app:icon="@{@drawable/ic_following}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/layoutFollower"

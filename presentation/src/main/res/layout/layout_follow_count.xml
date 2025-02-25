@@ -14,7 +14,7 @@
 
         <variable
             name="count"
-            type="String" />
+            type="Integer" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
-            android:text="@{count}"
+            android:text="@{count.toString()}"
             tools:text="100+" />
 
         <com.google.android.material.textview.MaterialTextView

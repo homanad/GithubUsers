@@ -2,25 +2,23 @@ package com.homanad.android.githubusers.ui.screens.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import coil3.load
-import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.githubusers.common.recycler.BaseItemHolder
 import com.homanad.android.githubusers.common.recycler.BaseRecyclerViewAdapter
 import com.homanad.android.githubusers.databinding.ItemUserBinding
+import com.homanad.android.githubusers.models.UserData
 
 class UserAdapter(
     private val onClick: (String) -> Unit
-) : BaseRecyclerViewAdapter<GithubUser>() {
+) : BaseRecyclerViewAdapter<UserData>() {
 
     inner class ItemHolder(
         private val binding: ItemUserBinding
-    ) : BaseItemHolder<GithubUser>(binding) {
+    ) : BaseItemHolder<UserData>(binding) {
 
-        override fun bind(item: GithubUser) {
+        override fun bind(item: UserData) {
             with(binding) {
-                imgAvatar.load(item.avatarUrl)
-                txtUsername.text = item.username
-                txtHtmlUrl.text = item.htmlUrl
+                user = item
+                isDetails = false
                 root.setOnClickListener {
                     onClick(item.username)
                 }
@@ -32,7 +30,7 @@ class UserAdapter(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
-    ): BaseItemHolder<GithubUser> {
+    ): BaseItemHolder<UserData> {
         val binding = ItemUserBinding.inflate(inflater, parent, false)
         return ItemHolder(binding)
     }

@@ -6,11 +6,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import coil3.load
-import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.githubusers.R
 import com.homanad.android.githubusers.common.base.BaseBindingFragment
 import com.homanad.android.githubusers.databinding.FragmentDetailsBinding
+import com.homanad.android.githubusers.models.UserData
 import com.homanad.android.githubusers.ui.screens.details.vm.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -52,15 +51,17 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
         }
     }
 
-    private fun showUserData(user: GithubUser) {
+    private fun showUserData(user: UserData) {
         println("-----------user: $user")
 
         with(binding) {
-            cardUser.imgAvatar.load(user.avatarUrl)
-            cardUser.txtUsername.text = user.username
-            cardUser.txtHtmlUrl.text = user.htmlUrl
-            followerCount = user.followers.toString()
-            followingCount = user.following.toString()
+//            cardUser.imgAvatar.load(user.avatarUrl)
+//            cardUser.txtUsername.text = user.username
+//            cardUser.txtHtmlUrl.text = user.htmlUrl
+            userData = user
+            isDetails = true
+//            followerCount = user.followers.toString()
+//            followingCount = user.following.toString()
         }
     }
 }
