@@ -5,4 +5,5 @@
     <color name="separatorLine">#D3D3D3</color>
     <color name="hyperLink">#03A9F4</color>
     <color name="subTitleTextColor">#545353</color>
+    <color name="iconTintColor">#181818</color>
 </resources>
