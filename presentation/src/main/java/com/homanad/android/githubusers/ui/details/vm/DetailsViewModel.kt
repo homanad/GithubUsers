@@ -21,6 +21,7 @@ class DetailsViewModel @Inject constructor(
 
     sealed interface State {
         data class User(val user: GithubUser) : State
+        data class Loading(val isLoading: Boolean) : State
     }
 
     override suspend fun processIntent(intent: Intent) {
@@ -31,9 +32,11 @@ class DetailsViewModel @Inject constructor(
 
     private fun getUser(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            emitState(State.Loading(true))
             getGithubUserUseCase(username).collectLatest {
                 println("-----------data: $it")
                 emitState(State.User(it))
+                emitState(State.Loading(false))
             }
         }
     }

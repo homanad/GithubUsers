@@ -17,5 +17,12 @@
             android:layout_height="match_parent"
             android:paddingHorizontal="@dimen/dp16" />
 
+        <include
+            android:id="@+id/viewLoading"
+            layout="@layout/layout_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
     </FrameLayout>
 </layout>

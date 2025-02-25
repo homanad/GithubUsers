@@ -27,6 +27,7 @@ class HomeViewModel @Inject constructor(
     sealed interface State {
         data class UserList(val users: List<GithubUser>) : State
         data class UserList2(val users: PagingData<GithubUser>) : State
+        data class Loading(val isLoading: Boolean) : State
     }
 
     override suspend fun processIntent(intent: Intent) {
@@ -37,8 +38,10 @@ class HomeViewModel @Inject constructor(
 
     private fun getUsers() {
         viewModelScope.launch(Dispatchers.IO) {
+            emitState(State.Loading(true))
             val data = getGithubUsersUseCase(GetGithubUsersUseCase.Params(20, 0))
             emitState(State.UserList(data))
+            emitState(State.Loading(false))
         }
     }
 

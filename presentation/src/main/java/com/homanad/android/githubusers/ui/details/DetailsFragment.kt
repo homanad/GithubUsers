@@ -1,5 +1,6 @@
 package com.homanad.android.githubusers.ui.details
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +25,9 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
 
     private val args by navArgs<DetailsFragmentArgs>()
 
+    override val loadingLayout: View
+        get() = binding.viewLoading.root
+
     override fun setupUI() {
         viewModel.sendIntent(DetailsViewModel.Intent.GetUser(args.username))
     }
@@ -43,6 +47,8 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
             is DetailsViewModel.State.User -> {
                 showUserData(state.user)
             }
+
+            is DetailsViewModel.State.Loading -> showLoading(state.isLoading)
         }
     }
 

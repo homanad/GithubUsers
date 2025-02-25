@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -19,6 +20,8 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
 
     protected val binding: B
         get() = _binding
+
+    open val loadingLayout: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,4 +59,8 @@ abstract class BaseBindingFragment<B : ViewDataBinding> : Fragment() {
     protected open fun handleUIEvent() {}
 
     protected open fun handleUIState() {}
+
+    protected fun showLoading(isLoading: Boolean) {
+        loadingLayout?.isVisible = isLoading
+    }
 }

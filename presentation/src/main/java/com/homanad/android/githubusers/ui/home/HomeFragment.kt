@@ -1,5 +1,6 @@
 package com.homanad.android.githubusers.ui.home
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +37,9 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
             findNavController().navigate(direction)
         }
     }
+
+    override val loadingLayout: View
+        get() = binding.viewLoading.root
 
     override fun setupUI() {
         viewModel.sendIntent(HomeViewModel.Intent.GetUsers)
@@ -75,6 +79,8 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
             is HomeViewModel.State.UserList2 -> {
                 userAdapter2.submitData(state.users)
             }
+
+            is HomeViewModel.State.Loading -> showLoading(state.isLoading)
         }
     }
 }
