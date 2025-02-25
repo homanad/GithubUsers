@@ -19,7 +19,8 @@ class UserDetailsMapper(
             userItem = userItemMapper(from),
             location = from.location ?: context.getString(R.string.unknown),
             followerCount = convertToDisplay(from.followers),
-            followingCount = convertToDisplay(from.following)
+            followingCount = convertToDisplay(from.following),
+            blogUrl = from.blogUrl
         )
     }
 

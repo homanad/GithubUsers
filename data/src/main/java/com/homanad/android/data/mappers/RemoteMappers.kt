@@ -5,7 +5,7 @@ import com.homanad.android.data.service.models.RemoteUser
 import com.homanad.android.domain.models.GithubUser
 
 fun RemoteUser.toUserEntity() =
-    UserEntity(login, avatar_url, html_url, location, followers, following)
+    UserEntity(login, avatar_url, html_url, location, followers, following, blog)
 
 fun RemoteUser.toGithubUser() =
-    GithubUser(login, avatar_url, html_url, location, followers, following)
+    GithubUser(login, avatar_url, html_url, location, followers, following, blog)

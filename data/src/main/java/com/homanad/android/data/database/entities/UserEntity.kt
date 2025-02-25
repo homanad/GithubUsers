@@ -11,5 +11,6 @@ class UserEntity(
     val htmlUrl: String,
     val location: String?,
     val followers: Int?,
-    val following: Int?
+    val following: Int?,
+    val blogUrl: String?
 )

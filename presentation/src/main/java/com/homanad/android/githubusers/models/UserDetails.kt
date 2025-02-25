@@ -4,5 +4,6 @@ data class UserDetails(
     val userItem: UserItem,
     val location: String,
     val followerCount: String,
-    val followingCount: String
+    val followingCount: String,
+    val blogUrl: String?
 )

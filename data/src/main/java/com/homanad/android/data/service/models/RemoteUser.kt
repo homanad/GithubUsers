@@ -9,5 +9,6 @@ class RemoteUser(
     val html_url: String,
     val location: String?,
     val followers: Int?,
-    val following: Int?
+    val following: Int?,
+    val blog: String?
 )
