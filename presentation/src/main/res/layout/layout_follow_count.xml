@@ -14,7 +14,7 @@
 
         <variable
             name="count"
-            type="Integer" />
+            type="String" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -36,13 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
-            android:text="@{count.toString()}"
+            android:text="@{count}"
             tools:text="100+" />
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/NormalText"
             android:layout_marginTop="@dimen/dp12"
             android:text="@{title}"
             tools:text="Follower" />

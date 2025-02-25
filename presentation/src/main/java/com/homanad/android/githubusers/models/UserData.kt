@@ -5,6 +5,6 @@ data class UserData(
     val avatarUrl: String,
     val githubUrl: String,
     val location: String,
-    val followerCount: Int,
-    val followingCount: Int
+    val followerCount: String,
+    val followingCount: String
 )
