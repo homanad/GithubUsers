@@ -14,13 +14,6 @@ class GetGithubUserUseCase(
     private val githubRepository: GithubRepository
 ) : BaseCallbackUseCaseWithParams<String, RequestState<GithubUser>>() {
 
-    //    override suspend fun execute(params: String): GithubUser {
-//        return githubRepository.getUser(params)
-//    }
-
-    //    override suspend fun execute(params: String): Flow<GithubUser> {
-//        return githubRepository.getUser(params)
-//    }
     override suspend fun execute(params: String): Flow<RequestState<GithubUser>> {
         return githubRepository.getUser(params)
     }

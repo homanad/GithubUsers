@@ -13,7 +13,6 @@ import com.homanad.android.githubusers.R
 import com.homanad.android.githubusers.common.base.BaseBindingFragment
 import com.homanad.android.githubusers.common.recycler.VerticalSpaceItemDecoration
 import com.homanad.android.githubusers.databinding.FragmentHomeBinding
-import com.homanad.android.githubusers.ui.screens.home.adapter.UserAdapter
 import com.homanad.android.githubusers.ui.screens.home.adapter.UserPagingAdapter
 import com.homanad.android.githubusers.ui.screens.home.vm.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,13 +25,6 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     override fun getContentRes() = R.layout.fragment_home
 
     private val viewModel by viewModels<HomeViewModel>()
-
-    private val userAdapter by lazy {
-        UserAdapter {
-            val direction = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it)
-            findNavController().navigate(direction)
-        }
-    }
 
     private val userAdapter2 by lazy {
         UserPagingAdapter {
@@ -94,10 +86,6 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     private suspend fun handleState(state: HomeViewModel.State) {
         when (state) {
             is HomeViewModel.State.UserList -> {
-                userAdapter.setItems(state.users)
-            }
-
-            is HomeViewModel.State.UserList2 -> {
                 userAdapter2.submitData(state.users)
             }
 

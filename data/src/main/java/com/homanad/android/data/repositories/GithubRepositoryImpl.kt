@@ -28,35 +28,23 @@ class GithubRepositoryImpl @Inject constructor(
     private fun isFirstPage(since: Int) = since == 0
 
     private fun shouldRefreshUsers(isFirstPage: Boolean, localData: List<UserEntity>): Boolean {
-        println("-------isFirstPage: $isFirstPage")
-        println("-------isEmpty: ${localData.isEmpty()}")
-
         if (!isFirstPage || localData.isEmpty()) return true
-
 
         val currentMillis = System.currentTimeMillis()
         val lastMillis = localData.getOrNull(localData.lastIndex)?.updatedMillis ?: currentMillis
-        println("-------currentMillis: $currentMillis")
-        println("-------lastMillis: $lastMillis")
 
         return currentMillis - lastMillis >= Constants.VALID_CACHING_TIME
     }
 
     private suspend fun getRemoteUsers(perPage: Int, since: Int): List<RemoteUser> {
-        println("------startRun: ${System.currentTimeMillis()}")
         val data = githubService.getUsers(perPage, since)
         return data
     }
 
-    /**
-     * //TODO
-     */
     override suspend fun getUsers(perPage: Int, since: Int): List<GithubUser> {
-        println("--------since: $since")
         val localData = userDao.getUsersByPage(perPage, since)
         val isFirstPage = isFirstPage(since)
         val should = shouldRefreshUsers(isFirstPage, localData)
-        println("----------should: $should")
 
         return if (should) {
             val remote = getRemoteUsers(perPage, since).also {
@@ -76,16 +64,14 @@ class GithubRepositoryImpl @Inject constructor(
         val local = userDao.getUserByUsername(username)
 
         local?.let {
-            println("-------getFromLocal: $it")
             emit(RequestState.Data(it.toGithubUser()))
         }
 
         if (shouldRefreshUser(local)) {
             emit(RequestState.Loading())
 
-            println("-------getFromRemote: $local")
-            val remoteData = githubService.getUser(username)
-                .also { userDao.updateUser(it.toUserEntity()) }
+            val remoteData =
+                githubService.getUser(username).also { userDao.updateUser(it.toUserEntity()) }
 
             emit(RequestState.Data(remoteData.toGithubUser()))
         }

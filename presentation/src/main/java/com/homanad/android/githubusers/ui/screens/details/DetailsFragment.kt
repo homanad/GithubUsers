@@ -58,16 +58,9 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
     }
 
     private fun showUserData(user: UserDetails) {
-        println("-----------user: $user")
-
         with(binding) {
-//            cardUser.imgAvatar.load(user.avatarUrl)
-//            cardUser.txtUsername.text = user.username
-//            cardUser.txtHtmlUrl.text = user.htmlUrl
             userData = user
             isDetails = true
-//            followerCount = user.followers.toString()
-//            followingCount = user.following.toString()
         }
     }
 

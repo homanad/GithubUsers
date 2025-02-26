@@ -8,10 +8,9 @@ import com.homanad.android.githubusers.mappers.UserItemMapper
 import com.homanad.android.githubusers.models.UserItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
-import java.io.IOException
+import javax.inject.Inject
 
-class UserPagingSource(
+class UserPagingSource @Inject constructor(
     private val getGithubUsersUseCase: GetGithubUsersUseCase,
     private val userItemMapper: UserItemMapper
 ) : PagingSource<Int, UserItem>() {
@@ -49,9 +48,7 @@ class UserPagingSource(
                 prevKey = if (page == START_PAGE) null else page - 1,
                 nextKey = nextKey
             )
-        } catch (exception: IOException) {
-            return LoadResult.Error(exception)
-        } catch (exception: HttpException) {
+        } catch (exception: Exception) {
             return LoadResult.Error(exception)
         }
     }
