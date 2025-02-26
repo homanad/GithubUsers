@@ -3,10 +3,13 @@ package com.homanad.android.githubusers.ui.screens.home.vm
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.testing.asSnapshot
+import com.homanad.android.data.repositories.GithubRepositoryImpl
+import com.homanad.android.domain.repositories.GithubRepository
 import com.homanad.android.domain.usecases.github.GetGithubUsersUseCase
 import com.homanad.android.githubusers.common.Constants.USER_ITEMS_PER_PAGE
 import com.homanad.android.githubusers.mappers.UserItemMapper
-import com.homanad.android.githubusers.ui.screens.home.fake.FakeGithubRepository
+import com.homanad.android.githubusers.ui.screens.util.FakeLocalDataSourceImpl
+import com.homanad.android.githubusers.ui.screens.util.FakeRemoteDataSourceImpl
 import com.homanad.android.githubusers.ui.screens.home.paging.UserPagingSource
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -27,12 +30,15 @@ class HomeViewModelTest {
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
     private lateinit var pagingSource: UserPagingSource
     private lateinit var viewModel: FakeHomeViewModel
+    private lateinit var githubRepository: GithubRepository
     private lateinit var getGithubUsersUseCase: GetGithubUsersUseCase
 
     @Before
     fun setUp() {
         Dispatchers.setMain(mainThreadSurrogate)
-        getGithubUsersUseCase = GetGithubUsersUseCase(FakeGithubRepository())
+        githubRepository =
+            GithubRepositoryImpl(FakeLocalDataSourceImpl(), FakeRemoteDataSourceImpl())
+        getGithubUsersUseCase = GetGithubUsersUseCase(githubRepository)
         pagingSource = UserPagingSource(getGithubUsersUseCase, UserItemMapper())
         viewModel = FakeHomeViewModel(pagingSource)
     }
