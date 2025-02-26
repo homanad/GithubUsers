@@ -4,6 +4,12 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * This is a class that creates item decoration for a vertical Recycler View.
+ * @param topSpace Distance from first item to parent
+ * @param betweenSpace Distance between items
+ * @param bottomSpace Distance from last item to parent
+ */
 class VerticalSpaceItemDecoration(
     private val topSpace: Int,
     private val betweenSpace: Int,

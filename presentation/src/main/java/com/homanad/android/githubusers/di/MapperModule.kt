@@ -9,6 +9,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 
+/**
+ * This is the Hilt DI module class, provide instances for mappers
+ */
 @Module
 @InstallIn(ViewModelComponent::class)
 object MapperModule {
