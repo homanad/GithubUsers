@@ -6,9 +6,9 @@ import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
 import com.homanad.android.githubusers.common.base.BaseViewModel
 import com.homanad.android.githubusers.mappers.UserDetailsMapper
 import com.homanad.android.githubusers.models.UserDetails
+import com.homanad.android.githubusers.util.safeFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,6 +25,7 @@ class DetailsViewModel @Inject constructor(
     sealed interface State {
         data class User(val user: UserDetails) : State
         data class Loading(val isLoading: Boolean) : State
+        data class Error(val error: Throwable) : State
     }
 
     override suspend fun processIntent(intent: Intent) {
@@ -35,18 +36,32 @@ class DetailsViewModel @Inject constructor(
 
     private fun getUser(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            emitState(State.Loading(true))
-
-            getGithubUserUseCase(username).collectLatest {
+//            emitState(State.Loading(true))
+//
+//            getGithubUserUseCase(username).collectLatest {
+//                when (it) {
+//                    is RequestState.Loading -> emitState(State.Loading(true))
+//
+//                    is RequestState.Data -> {
+//                        emitState(State.Loading(false))
+//                        emitState(State.User(userDetailsMapper(it.data)))
+//                    }
+//
+//                    is RequestState.Error -> emitState(State.Loading(false))
+//                }
+//            }
+            safeFlow(
+                getGithubUserUseCase(username),
+                onLoading = { emitState(State.Loading(true)) },
+                onError = { emitState(State.Error(it)) },
+                onCompletion = { emitState(State.Loading(false)) },
+            ) {
                 when (it) {
                     is RequestState.Loading -> emitState(State.Loading(true))
 
                     is RequestState.Data -> {
-                        emitState(State.Loading(false))
                         emitState(State.User(userDetailsMapper(it.data)))
                     }
-
-                    is RequestState.Error -> emitState(State.Loading(false))
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.homanad.android.githubusers.ui.screens.details
 
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -47,6 +48,11 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
                 showUserData(state.user)
             }
 
+            is DetailsViewModel.State.Error -> {
+                val errMessage = state.error.localizedMessage ?: getString(R.string.unknown_error)
+                showError(errMessage)
+            }
+
             is DetailsViewModel.State.Loading -> showLoading(state.isLoading)
         }
     }
@@ -63,5 +69,9 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
 //            followerCount = user.followers.toString()
 //            followingCount = user.following.toString()
         }
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
