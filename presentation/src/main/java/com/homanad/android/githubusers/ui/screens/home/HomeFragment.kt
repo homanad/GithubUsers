@@ -1,11 +1,13 @@
 package com.homanad.android.githubusers.ui.screens.home
 
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.homanad.android.githubusers.R
 import com.homanad.android.githubusers.common.base.BaseBindingFragment
@@ -15,6 +17,7 @@ import com.homanad.android.githubusers.ui.screens.home.adapter.UserAdapter
 import com.homanad.android.githubusers.ui.screens.home.adapter.UserPagingAdapter
 import com.homanad.android.githubusers.ui.screens.home.vm.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -56,6 +59,24 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
                         verticalSpace
                     )
                 )
+            }
+        }
+    }
+
+    override fun handleUIEvent() {
+        with(binding) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                userAdapter2.loadStateFlow.collectLatest { loadStates ->
+                    showLoading(loadStates.refresh is LoadState.Loading)
+                    binding.layoutRetry.isVisible = loadStates.refresh is LoadState.Error
+                    if (loadStates.refresh is LoadState.Error) {
+                        binding.txtError.text =
+                            (loadStates.refresh as LoadState.Error).error.localizedMessage
+                    }
+                }
+            }
+            btnRetry.setOnClickListener {
+                userAdapter2.retry()
             }
         }
     }

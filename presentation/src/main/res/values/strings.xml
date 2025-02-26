@@ -6,4 +6,5 @@
     <string name="follower">Follower</string>
     <string name="following">Following</string>
     <string name="unknown">Unknown</string>
+    <string name="retry">Retry</string>
 </resources>
