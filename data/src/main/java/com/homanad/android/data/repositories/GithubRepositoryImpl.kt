@@ -1,11 +1,11 @@
 package com.homanad.android.data.repositories
 
 import com.homanad.android.data.Constants
-import com.homanad.android.data.database.dao.UserDao
 import com.homanad.android.data.database.entities.UserEntity
+import com.homanad.android.data.datasource.local.LocalGithubDataSource
+import com.homanad.android.data.datasource.remote.RemoteGithubDataSource
 import com.homanad.android.data.mappers.toGithubUser
 import com.homanad.android.data.mappers.toUserEntity
-import com.homanad.android.data.service.GithubService
 import com.homanad.android.data.service.models.RemoteUser
 import com.homanad.android.domain.common.RequestState
 import com.homanad.android.domain.models.GithubUser
@@ -17,12 +17,12 @@ import javax.inject.Inject
 /**
  * This is the implementation class of GithubRepository
  * @see GithubRepository
- * @param userDao Database DAO for accessing local data
- * @param githubService Retrofit service to access data from the server
+ * @param localDataSource Local data source to access cached data
+ * @param remoteDataSource Remote data source to access remote data
  */
 class GithubRepositoryImpl @Inject constructor(
-    private val userDao: UserDao,
-    private val githubService: GithubService
+    private val localDataSource: LocalGithubDataSource,
+    private val remoteDataSource: RemoteGithubDataSource
 ) : GithubRepository {
 
     private fun isFirstPage(since: Int) = since == 0
@@ -37,18 +37,17 @@ class GithubRepositoryImpl @Inject constructor(
     }
 
     private suspend fun getRemoteUsers(perPage: Int, since: Int): List<RemoteUser> {
-        val data = githubService.getUsers(perPage, since)
-        return data
+        return remoteDataSource.getUsers(perPage, since)
     }
 
     override suspend fun getUsers(perPage: Int, since: Int): List<GithubUser> {
-        val localData = userDao.getUsersByPage(perPage, since)
+        val localData = localDataSource.getUsers(perPage, since)
         val isFirstPage = isFirstPage(since)
         val should = shouldRefreshUsers(isFirstPage, localData)
 
         return if (should) {
             val remote = getRemoteUsers(perPage, since).also {
-                if (isFirstPage) userDao.deleteAndInsert(it.map { item -> item.toUserEntity() })
+                if (isFirstPage) localDataSource.refreshCache(it.map { item -> item.toUserEntity() })
             }
             remote.map { it.toGithubUser() }
         } else {
@@ -61,7 +60,7 @@ class GithubRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getUser(username: String): Flow<RequestState<GithubUser>> = flow {
-        val local = userDao.getUserByUsername(username)
+        val local = localDataSource.getUser(username)
 
         local?.let {
             emit(RequestState.Data(it.toGithubUser()))
@@ -70,8 +69,8 @@ class GithubRepositoryImpl @Inject constructor(
         if (shouldRefreshUser(local)) {
             emit(RequestState.Loading())
 
-            val remoteData =
-                githubService.getUser(username).also { userDao.updateUser(it.toUserEntity()) }
+            val remoteData = remoteDataSource.getUser(username)
+                .also { localDataSource.updateUser(it.toUserEntity()) }
 
             emit(RequestState.Data(remoteData.toGithubUser()))
         }
