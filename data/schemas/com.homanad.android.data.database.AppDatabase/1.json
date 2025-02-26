@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "424c265b93ef5d64d5c2ac3072ce0cd4",
+    "identityHash": "3bc6f8a559afe4d745f523cb573b904c",
     "entities": [
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`username` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `htmlUrl` TEXT NOT NULL, `location` TEXT, `followers` INTEGER, `following` INTEGER, `blogUrl` TEXT, PRIMARY KEY(`username`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`username` TEXT NOT NULL, `avatarUrl` TEXT NOT NULL, `htmlUrl` TEXT NOT NULL, `location` TEXT, `followers` INTEGER, `following` INTEGER, `blogUrl` TEXT, `updatedMillis` INTEGER NOT NULL, PRIMARY KEY(`username`))",
         "fields": [
           {
             "fieldPath": "username",
@@ -49,6 +49,12 @@
             "columnName": "blogUrl",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "updatedMillis",
+            "columnName": "updatedMillis",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -64,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '424c265b93ef5d64d5c2ac3072ce0cd4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3bc6f8a559afe4d745f523cb573b904c')"
     ]
   }
 }

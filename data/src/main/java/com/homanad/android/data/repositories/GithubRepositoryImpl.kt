@@ -1,13 +1,14 @@
 package com.homanad.android.data.repositories
 
+import com.homanad.android.data.Constants
 import com.homanad.android.data.database.dao.UserDao
+import com.homanad.android.data.database.entities.UserEntity
 import com.homanad.android.data.mappers.toGithubUser
 import com.homanad.android.data.mappers.toUserEntity
 import com.homanad.android.data.service.GithubService
+import com.homanad.android.data.service.models.RemoteUser
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.repositories.GithubRepository
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -23,64 +24,67 @@ class GithubRepositoryImpl @Inject constructor(
     private val githubService: GithubService
 ) : GithubRepository {
 
+    private fun isFirstPage(since: Int) = since == 0
+
+    private fun shouldRefreshUsers(isFirstPage: Boolean, localData: List<UserEntity>): Boolean {
+        println("-------isFirstPage: $isFirstPage")
+        println("-------isEmpty: ${localData.isEmpty()}")
+
+        if (!isFirstPage || localData.isEmpty()) return true
+
+
+        val currentMillis = System.currentTimeMillis()
+        val lastMillis = localData.getOrNull(localData.lastIndex)?.updatedMillis ?: currentMillis
+        println("-------currentMillis: $currentMillis")
+        println("-------lastMillis: $lastMillis")
+
+        return currentMillis - lastMillis >= Constants.VALID_CACHING_TIME
+    }
+
+    private suspend fun getRemoteUsers(perPage: Int, since: Int): List<RemoteUser> {
+        println("------startRun: ${System.currentTimeMillis()}")
+        val data = githubService.getUsers(perPage, since)
+        return data
+    }
+
     /**
      * //TODO
      */
     override suspend fun getUsers(perPage: Int, since: Int): List<GithubUser> {
         println("--------since: $since")
-        if (since == 0) {
-            val localData = userDao.getAll()
+        val localData = userDao.getUsersByPage(perPage, since)
+        val isFirstPage = isFirstPage(since)
+        val should = shouldRefreshUsers(isFirstPage, localData)
+        println("----------should: $should")
 
-            return if (localData.isEmpty()) {
-                val remoteData = coroutineScope {
-                    async {
-                        println("------startRun: ${System.currentTimeMillis()}")
-                        return@async try {
-                            githubService.getUsers(perPage, since)
-                                .also { userDao.deleteAndInsert(it.map { item -> item.toUserEntity() }) }
-                        } catch (e: Exception) {
-                            println("-------exception: $e")
-                            emptyList()
-                        }
-                    }
-                }
-                println("------outside: ${System.currentTimeMillis()}")
-                val data = remoteData.await().map { it.toGithubUser() }
-                println("------endRun: ${System.currentTimeMillis()}")
-                data
-            } else {
-                localData.map { it.toGithubUser() }
+        return if (should) {
+            val remote = getRemoteUsers(perPage, since).also {
+                if (isFirstPage) userDao.deleteAndInsert(it.map { item -> item.toUserEntity() })
             }
+            remote.map { it.toGithubUser() }
         } else {
-            println("--------getFromRemote")
-            return githubService.getUsers(perPage, since).map { it.toGithubUser() }
+            localData.map { it.toGithubUser() }
         }
     }
 
-//    override suspend fun getUser(username: String): Flow<GithubUser> {
-//        val local = userDao.getUserByUsername(username)
-//        return if (local == null) {
-//            val remote = githubService.getUser(username)
-//            userDao.insertUser(remote.toUserEntity())
-//            remote.toGithubUser()
-//        } else {
-//            local.toGithubUser()
-//        }
-//        return githubService.getUser(username).toGithubUser()
-//    }
+    private fun shouldRefreshUser(localData: UserEntity?): Boolean {
+        return localData?.followers == null || localData.following == null
+    }
 
-    /**
-     * //TODO
-     */
     override suspend fun getUser(username: String): Flow<GithubUser> = flow {
-        userDao.getUserByUsername(username)?.let {
+        val local = userDao.getUserByUsername(username)
+
+        local?.let {
             println("-------getFromLocal: $it")
             emit(it.toGithubUser())
         }
 
-        val remoteData = githubService.getUser(username)
-            .also { userDao.updateUser(it.toUserEntity()) }
+        if (shouldRefreshUser(local)) {
+            println("-------getFromRemote: $local")
+            val remoteData = githubService.getUser(username)
+                .also { userDao.updateUser(it.toUserEntity()) }
 
-        emit(remoteData.toGithubUser())
+            emit(remoteData.toGithubUser())
+        }
     }
 }
