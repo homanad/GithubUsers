@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class RemoteUser(
+    val id: Long,
     val login: String,
     val avatar_url: String,
     val html_url: String,

@@ -14,7 +14,7 @@ interface UserDao {
     @Query("SELECT * FROM users")
     fun getAll(): List<UserEntity>
 
-    @Query("SELECT * FROM users ORDER BY updatedMillis ASC LIMIT :perPage OFFSET :since")
+    @Query("SELECT * FROM users ORDER BY id ASC LIMIT :perPage OFFSET :since")
     fun getUsersByPage(perPage: Int, since: Int): List<UserEntity>
 
     @Query("SELECT * FROM users WHERE username = :username")
