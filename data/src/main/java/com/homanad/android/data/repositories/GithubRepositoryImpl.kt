@@ -7,6 +7,7 @@ import com.homanad.android.data.mappers.toGithubUser
 import com.homanad.android.data.mappers.toUserEntity
 import com.homanad.android.data.service.GithubService
 import com.homanad.android.data.service.models.RemoteUser
+import com.homanad.android.domain.common.RequestState
 import com.homanad.android.domain.models.GithubUser
 import com.homanad.android.domain.repositories.GithubRepository
 import kotlinx.coroutines.flow.Flow
@@ -71,20 +72,22 @@ class GithubRepositoryImpl @Inject constructor(
         return localData?.followers == null || localData.following == null
     }
 
-    override suspend fun getUser(username: String): Flow<GithubUser> = flow {
+    override suspend fun getUser(username: String): Flow<RequestState<GithubUser>> = flow {
         val local = userDao.getUserByUsername(username)
 
         local?.let {
             println("-------getFromLocal: $it")
-            emit(it.toGithubUser())
+            emit(RequestState.Data(it.toGithubUser()))
         }
 
         if (shouldRefreshUser(local)) {
+            emit(RequestState.Loading())
+
             println("-------getFromRemote: $local")
             val remoteData = githubService.getUser(username)
                 .also { userDao.updateUser(it.toUserEntity()) }
 
-            emit(remoteData.toGithubUser())
+            emit(RequestState.Data(remoteData.toGithubUser()))
         }
     }
 }

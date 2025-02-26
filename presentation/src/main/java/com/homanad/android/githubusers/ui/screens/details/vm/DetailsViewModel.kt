@@ -1,6 +1,7 @@
 package com.homanad.android.githubusers.ui.screens.details.vm
 
 import androidx.lifecycle.viewModelScope
+import com.homanad.android.domain.common.RequestState
 import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
 import com.homanad.android.githubusers.common.base.BaseViewModel
 import com.homanad.android.githubusers.mappers.UserDetailsMapper
@@ -35,10 +36,18 @@ class DetailsViewModel @Inject constructor(
     private fun getUser(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
             emitState(State.Loading(true))
+
             getGithubUserUseCase(username).collectLatest {
-                println("-----------data: $it")
-                emitState(State.User(userDetailsMapper(it)))
-                emitState(State.Loading(false))
+                when (it) {
+                    is RequestState.Loading -> emitState(State.Loading(true))
+
+                    is RequestState.Data -> {
+                        emitState(State.Loading(false))
+                        emitState(State.User(userDetailsMapper(it.data)))
+                    }
+
+                    is RequestState.Error -> emitState(State.Loading(false))
+                }
             }
         }
     }
