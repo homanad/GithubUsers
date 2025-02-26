@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.homanad.android.githubusers.R
 import com.homanad.android.githubusers.common.base.BaseBindingFragment
@@ -51,6 +52,7 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
             is DetailsViewModel.State.Error -> {
                 val errMessage = state.error.localizedMessage ?: getString(R.string.unknown_error)
                 showError(errMessage)
+                findNavController().navigateUp()
             }
 
             is DetailsViewModel.State.Loading -> showLoading(state.isLoading)

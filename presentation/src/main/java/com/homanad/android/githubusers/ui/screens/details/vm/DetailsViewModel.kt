@@ -36,20 +36,6 @@ class DetailsViewModel @Inject constructor(
 
     private fun getUser(username: String) {
         viewModelScope.launch(Dispatchers.IO) {
-//            emitState(State.Loading(true))
-//
-//            getGithubUserUseCase(username).collectLatest {
-//                when (it) {
-//                    is RequestState.Loading -> emitState(State.Loading(true))
-//
-//                    is RequestState.Data -> {
-//                        emitState(State.Loading(false))
-//                        emitState(State.User(userDetailsMapper(it.data)))
-//                    }
-//
-//                    is RequestState.Error -> emitState(State.Loading(false))
-//                }
-//            }
             safeFlow(
                 getGithubUserUseCase(username),
                 onLoading = { emitState(State.Loading(true)) },

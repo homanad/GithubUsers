@@ -9,7 +9,7 @@ class FakeRemoteDataSourceImpl : RemoteGithubDataSource {
     private val dummyUsers: List<RemoteUser>
         get() {
             val username = UUID.randomUUID().toString()
-            return (0..140L).map { createDummyUser(it, username) }
+            return (1..140L).map { createDummyUser(it, "remote$it") }
         }
 
     private fun createDummyUser(id: Long, username: String) =
