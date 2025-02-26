@@ -1,15 +1,13 @@
 package com.homanad.android.githubusers.ui.screens.details.vm
 
-import androidx.lifecycle.viewModelScope
 import com.homanad.android.domain.common.RequestState
 import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
 import com.homanad.android.githubusers.common.base.BaseViewModel
 import com.homanad.android.githubusers.mappers.UserDetailsMapper
 import com.homanad.android.githubusers.models.UserDetails
+import com.homanad.android.githubusers.util.launchDefault
 import com.homanad.android.githubusers.util.safeFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +33,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     private fun getUser(username: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        launchDefault {
             safeFlow(
                 getGithubUserUseCase(username),
                 onLoading = { emitState(State.Loading(true)) },

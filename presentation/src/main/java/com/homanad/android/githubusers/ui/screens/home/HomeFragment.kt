@@ -4,8 +4,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +13,7 @@ import com.homanad.android.githubusers.common.recycler.VerticalSpaceItemDecorati
 import com.homanad.android.githubusers.databinding.FragmentHomeBinding
 import com.homanad.android.githubusers.ui.screens.home.adapter.UserPagingAdapter
 import com.homanad.android.githubusers.ui.screens.home.vm.HomeViewModel
+import com.homanad.android.githubusers.util.repeatOnLifecycleState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -56,8 +55,19 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
     }
 
     override fun handleUIEvent() {
-        with(binding) {
-            viewLifecycleOwner.lifecycleScope.launch {
+        binding.btnRetry.setOnClickListener {
+            userAdapter2.retry()
+        }
+    }
+
+    override fun handleUIState() {
+        repeatOnLifecycleState(Lifecycle.State.RESUMED) {
+            launch {
+                viewModel.stateFlow.collect {
+                    handleState(it)
+                }
+            }
+            launch {
                 userAdapter2.loadStateFlow.collectLatest { loadStates ->
                     showLoading(loadStates.refresh is LoadState.Loading)
                     binding.layoutRetry.isVisible = loadStates.refresh is LoadState.Error
@@ -65,19 +75,6 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>() {
                         binding.txtError.text =
                             (loadStates.refresh as LoadState.Error).error.localizedMessage
                     }
-                }
-            }
-            btnRetry.setOnClickListener {
-                userAdapter2.retry()
-            }
-        }
-    }
-
-    override fun handleUIState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.stateFlow.collect {
-                    handleState(it)
                 }
             }
         }
