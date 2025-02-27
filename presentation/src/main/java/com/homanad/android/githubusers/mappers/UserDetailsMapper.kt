@@ -29,7 +29,8 @@ class UserDetailsMapper(
      */
     private fun convertToDisplay(value: Int?): String {
         return when (value) {
-            0, null -> "0"
+            0 -> "0"
+            null -> context.getString(R.string.unknown)
             in 1..999 -> convertRoundDown(value, 10)
             else -> convertRoundDown(value, 100)
         }
