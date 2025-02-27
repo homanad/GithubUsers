@@ -8,8 +8,8 @@ import com.homanad.android.domain.repositories.GithubRepository
 import com.homanad.android.domain.usecases.github.GetGithubUsersUseCase
 import com.homanad.android.githubusers.common.Constants.USER_ITEMS_PER_PAGE
 import com.homanad.android.githubusers.mappers.UserItemMapper
-import com.homanad.android.githubusers.ui.screens.util.FakeLocalDataSourceImpl
-import com.homanad.android.githubusers.ui.screens.util.FakeRemoteDataSourceImpl
+import com.homanad.android.githubusers.util.FakeLocalDataSourceImpl
+import com.homanad.android.githubusers.util.FakeRemoteDataSourceImpl
 import com.homanad.android.githubusers.ui.screens.home.paging.UserPagingSource
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers

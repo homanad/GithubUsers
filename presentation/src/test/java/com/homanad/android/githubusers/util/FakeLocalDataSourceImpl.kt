@@ -1,4 +1,4 @@
-package com.homanad.android.githubusers.ui.screens.util
+package com.homanad.android.githubusers.util
 
 import com.homanad.android.data.database.entities.UserEntity
 import com.homanad.android.data.datasource.local.LocalGithubDataSource

@@ -4,8 +4,8 @@ import com.homanad.android.data.repositories.GithubRepositoryImpl
 import com.homanad.android.domain.common.RequestState
 import com.homanad.android.domain.repositories.GithubRepository
 import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
-import com.homanad.android.githubusers.ui.screens.util.FakeLocalDataSourceImpl
-import com.homanad.android.githubusers.ui.screens.util.FakeRemoteDataSourceImpl
+import com.homanad.android.githubusers.util.FakeLocalDataSourceImpl
+import com.homanad.android.githubusers.util.FakeRemoteDataSourceImpl
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,7 +44,7 @@ class DetailsViewModelTest {
         val username = "remote$index"
         val userState = getGithubUserUseCase(username).last()
 
-        assert(userState is RequestState.Data && userState.data?.username == username)
+        assert(userState is RequestState.Data && userState.data.username == username)
     }
 
     @Test
@@ -53,7 +53,7 @@ class DetailsViewModelTest {
         val username = "local$index"
         val userState = getGithubUserUseCase(username).last()
 
-        assert(userState is RequestState.Data && userState.data?.username == username)
+        assert(userState is RequestState.Data && userState.data.username == username)
     }
 
     @Test(expected = NullPointerException::class)
