@@ -22,8 +22,8 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnBack"
                 style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="@dimen/dp32"
-                android:layout_height="@dimen/dp32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp16"
                 app:icon="@drawable/ic_back" />
