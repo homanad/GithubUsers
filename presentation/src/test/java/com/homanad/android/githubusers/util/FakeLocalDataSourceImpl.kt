@@ -32,7 +32,7 @@ class FakeLocalDataSourceImpl : LocalGithubDataSource {
         return dummyUsers.find { it.username == username }
     }
 
-    override suspend fun updateUser(user: UserEntity) {
+    override suspend fun insertOrReplaceUser(user: UserEntity) {
         val tobeUpdated = dummyUsers.find { it.username == user.username }
         tobeUpdated?.let {
             dummyUsers.remove(it)

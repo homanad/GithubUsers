@@ -23,8 +23,8 @@ class LocalGithubDataSourceImpl @Inject constructor(
         return userDao.getUserByUsername(username)
     }
 
-    override suspend fun updateUser(user: UserEntity) {
-        return userDao.updateUser(user)
+    override suspend fun insertOrReplaceUser(user: UserEntity) {
+        return userDao.insertOrReplaceUser(user)
     }
 
     override suspend fun refreshCache(users: List<UserEntity>) {

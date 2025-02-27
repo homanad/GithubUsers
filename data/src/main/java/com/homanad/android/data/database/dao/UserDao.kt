@@ -21,6 +21,9 @@ interface UserDao {
     fun getUserByUsername(username: String): UserEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrReplaceUser(user: UserEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUsers(users: List<UserEntity>)
 
     @Update

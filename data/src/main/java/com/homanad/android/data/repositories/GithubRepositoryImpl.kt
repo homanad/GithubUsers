@@ -70,7 +70,7 @@ class GithubRepositoryImpl @Inject constructor(
             emit(RequestState.Loading())
 
             val remoteData = remoteDataSource.getUser(username)
-                .also { localDataSource.updateUser(it.toUserEntity()) }
+                .also { localDataSource.insertOrReplaceUser(it.toUserEntity()) }
 
             emit(RequestState.Data(remoteData.toGithubUser()))
         }
