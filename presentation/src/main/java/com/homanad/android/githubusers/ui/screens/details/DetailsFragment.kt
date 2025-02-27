@@ -48,7 +48,6 @@ class DetailsFragment : BaseBindingFragment<FragmentDetailsBinding>() {
             is DetailsViewModel.State.Error -> {
                 val errMessage = state.error.localizedMessage ?: getString(R.string.unknown_error)
                 showError(errMessage)
-                findNavController().navigateUp()
             }
 
             is DetailsViewModel.State.Loading -> showLoading(state.isLoading)

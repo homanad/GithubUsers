@@ -24,11 +24,8 @@ class FakeLocalDataSourceImpl : LocalGithubDataSource {
         ) //fake current time to avoid refresh cache data call
 
     override suspend fun getUsers(perPage: Int, since: Int): List<UserEntity> {
-        println("---------since: $since, perPage: $perPage, to: ${since + perPage}")
         //Only cache the first page (20 items)
-        val data = dummyUsers.subList(0, 0 + perPage)
-        println("---------size: ${data.size}")
-        return data
+        return dummyUsers.subList(0, 0 + perPage)
     }
 
     override suspend fun getUser(username: String): UserEntity? {
