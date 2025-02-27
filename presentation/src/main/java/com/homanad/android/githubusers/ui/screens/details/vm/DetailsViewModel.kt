@@ -5,7 +5,7 @@ import com.homanad.android.domain.usecases.github.GetGithubUserUseCase
 import com.homanad.android.githubusers.common.base.BaseViewModel
 import com.homanad.android.githubusers.mappers.UserDetailsMapper
 import com.homanad.android.githubusers.models.UserDetails
-import com.homanad.android.githubusers.util.launchDefault
+import com.homanad.android.githubusers.util.launchIO
 import com.homanad.android.githubusers.util.safeFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -33,7 +33,7 @@ class DetailsViewModel @Inject constructor(
     }
 
     private fun getUser(username: String) {
-        launchDefault {
+        launchIO {
             safeFlow(
                 getGithubUserUseCase(username),
                 onLoading = { emitState(State.Loading(true)) },

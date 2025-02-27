@@ -43,9 +43,9 @@ class GithubRepositoryImpl @Inject constructor(
     override suspend fun getUsers(perPage: Int, since: Int): List<GithubUser> {
         val localData = localDataSource.getUsers(perPage, since)
         val isFirstPage = isFirstPage(since)
-        val should = shouldRefreshUsers(isFirstPage, localData)
+        val shouldRefresh = shouldRefreshUsers(isFirstPage, localData)
 
-        return if (should) {
+        return if (shouldRefresh) {
             val remote = getRemoteUsers(perPage, since).also {
                 if (isFirstPage) localDataSource.refreshCache(it.map { item -> item.toUserEntity() })
             }

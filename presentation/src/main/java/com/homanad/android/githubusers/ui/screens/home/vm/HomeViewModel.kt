@@ -9,7 +9,7 @@ import com.homanad.android.githubusers.common.Constants.USER_ITEMS_PER_PAGE
 import com.homanad.android.githubusers.common.base.BaseViewModel
 import com.homanad.android.githubusers.models.UserItem
 import com.homanad.android.githubusers.ui.screens.home.paging.UserPagingSource
-import com.homanad.android.githubusers.util.launchDefault
+import com.homanad.android.githubusers.util.launchIO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
     ).flow.cachedIn(viewModelScope)
 
     private fun getUsers() {
-        launchDefault {
+        launchIO {
             userPagingFlow.collectLatest {
                 emitState(State.UserList(it))
             }

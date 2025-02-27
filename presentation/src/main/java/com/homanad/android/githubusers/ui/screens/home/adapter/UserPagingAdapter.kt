@@ -40,7 +40,6 @@ class UserPagingAdapter(
     }
 }
 
-
 class UserItemCallback : DiffUtil.ItemCallback<UserItem>() {
 
     override fun areItemsTheSame(oldItem: UserItem, newItem: UserItem): Boolean {
